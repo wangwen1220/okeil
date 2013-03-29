@@ -1,0 +1,340 @@
+/*.brand_list
+------------------------------*/
+#pros .brand_list,
+#pros .notice {
+  overflow: hidden;
+  margin: 12px 20px 0;
+  padding: 5px !important;/*!important only for chrome*/
+  border: 1px solid #DBDBDB;
+  background-color: #F8F8F8;
+}
+
+#pros .notice {
+  padding: 5px 10px 5px 30px !important;
+  font: 14px/1.4 georgia, serif;
+  text-align: justify;
+  border-color: #F2D692;
+  background: #FCF6D4 url(../img/common/notice.png) no-repeat 10px 6px;
+}
+
+#pros .notice strong {font-weight: bold}
+
+#pros .brand_list li { display: inline; margin-right: 8px }
+
+#pros .brand_list li strong {font-weight: bold}
+
+#pros .brand_list li a {
+  padding-right: 8px;
+  border-right: 1px solid #DBDBDB;
+  text-decoration: none;
+  color: #444;
+}
+
+#pros .brand_list li.view_all a {
+  float: right;
+  border: none;
+  _margin-top: -23px;
+}
+
+#pros .brand_list li.last a {border: none}
+
+#pros .brand_list li a:hover { text-decoration: underline; color: #3871A9 }
+
+#pros .brand_list li.current a {
+  color: #3871A9;
+  cursor: default;
+  text-decoration: none;
+}
+
+/*.list
+------------------------------*/
+#pros div.list {
+  position: relative;
+  overflow: hidden;
+  margin: 0 20px;/*margin: 20px 20px 10px;*/
+  border-top: 1px solid #ddd;/*border: 1px solid #F1F1F1;*/
+  _zoom: 1;
+}
+
+#pros div.list.first {
+  margin-top: 10px;
+  border: none;
+}
+
+#pros div.list:hover {background-color: #f8f8f8}
+
+#pros div.list .img {
+  float: left;
+  margin: 10px;
+}
+
+#pros div.list img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background: #fff url(../img/common/loading.gif) no-repeat center center;
+}
+
+#pros div.list h3,
+#pros div.list ul {
+  float: left;
+  width: 45%;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+#pros div.list h3 a {color: #444}
+
+#pros div.list ul {
+  margin-top: -8px;
+  color: #444;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+#pros div.list ul span {color: #888}
+
+#pros div.list .more {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #444;
+  font-size: 11px;
+}
+
+/*.item
+------------------------------*/
+#pros div.item {
+  position: relative;
+	left: 20px;
+	bottom: -1px;
+	float: left;
+	margin-top: 10px;
+	padding-bottom: 5px;
+
+	width: 246px;
+  overflow: hidden;
+	/*border-right: 1px dotted #ccc;*/
+	border-bottom: 1px dotted #ccc;
+  _zoom: 1;
+}
+
+#pros div.even {
+	border-right: none;
+}
+
+#pros div.item img {
+  display: block;
+  width: 150px;
+  height: 150px;
+	margin: 10px auto;
+  background: #fff url(../img/common/loading.gif) no-repeat center center;
+}
+
+#pros div.item h3, #pros div.item ul {
+	height: 1.4em;
+	line-height: 1.4;
+	overflow: hidden;
+	padding: 0 4px;
+	text-align: center;
+	font-weight: normal;
+	font-size: 14px;
+}
+
+#pros div.item ul {
+	margin-bottom: 10px;
+  font-size: 11px;
+	color: #666;
+}
+
+#pros div.item ul li.number {
+	display: block;
+}
+
+#pros div.item .more, #pros div.item ul li {
+	display: none;
+}
+
+/*.box
+------------------------------*/
+#pros div.box {
+  position: relative;
+  float: left;
+  width: 170px;
+  height: 234px;
+  overflow: hidden;
+  margin: 10px 0 10px 20px;
+  display: inline;/*IE6 bug*/
+  background-color: #efefef;
+}
+
+#pros div.box.new {/*IE6 不兼容类名连写，“.new.box”识别为“.new”*/
+  left: 8px;
+  width: 176px;
+  height: 238px;
+  margin: 15px 0 5px 12px;
+  background-color: #618EB8;
+}
+
+#pros.prolist div.box { right: -20px; width: 222px; height: 266px; margin: 10px 25px 10px 0; border: 4px solid #efefef;}
+#pros.prolist div.box2 {width: 728px; height:100%; margin: 10px 0px 10px 20px; overflow:hidden;}
+
+#pros div.box.new:hover { background-color: #3871A9 }
+#pros.prolist div.box:hover { border-color: #319FE6; background-color: #319FE6 }
+#pros.prolist div.box a.img { display: block; height: 222px; overflow: hidden }
+#pros div.box img { display: block; width: 168px;  height: 168px;  border: 1px solid #dfdfdf;  background-color: #fff;}
+#pros div.box.new img { width: 174px; height: 174px; border: 1px solid #bbb }
+#pros div.box.new img:hover { border-color: #3871A9 }
+#pros.prolist div.box img { width: 100%; height: auto; border: none }
+#pros div.box h3 { padding: 4px 5px; font-size: 12px; font-weight: normal }
+#pros.prolist div.box h3 { font-weight: bold; text-align: center }
+#pros div.box h3 a { display: block; max-height: 35px; _height: 35px; overflow: hidden; color: #444 }
+#pros div.box h3 span { display: block; font-weight: bold; color: #3871A9 }
+
+#pros.prolist div.box:hover h3 a,
+#pros div.box.new h3 a:link,
+#pros div.box.new h3 a:visited,
+#pros div.box.new h3 span { color: #fff }
+
+#pros div.box h3 > a:hover { color: #3871A9 }
+
+#pros div.box ul, #pros div.box .more { display: none }/*留着备用*/
+
+/*Img view
+------------------------------*/
+#pros.prolist div.img_view {
+  width: 740px;
+  height: auto;
+  border: none;
+}
+
+#pros.prolist div.img_view a.img {
+  height: auto;
+  border: none;
+}
+
+#pros.prolist div.img_view img {
+  width: 740px;
+}
+
+#pros.prolist div.img_view h3 {display: none}
+
+#img_show {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#img_show a {
+  display: block;
+  margin: 0 auto;
+}
+
+#img_show img {
+  display: block;
+  width: 1000px;
+  height: 3000px;
+}
+
+/*.error
+------------------------------*/
+#pros .error {
+  margin: 10px 20px 20px;
+  color: #666;
+}
+
+/*.pager
+------------------------------*/
+#pros .pager {
+  clear: both;
+  position: relative;
+	z-index: 10;
+  /*top: 10px;*/
+  height: 28px;
+  overflow: hidden;
+  margin: 0 20px;
+  padding-left: 10px;
+  border: 1px solid #DBDBDB;
+  background-color: #F8F8F8;
+  line-height: 28px;
+  text-align: center;
+}
+
+#pros .view_as span {cursor: pointer;}
+
+#pros .view_as span:hover { color: red }
+
+#pros span.view_as .current {
+  cursor: default;
+  color: #444;
+  font-weight: normal;
+}
+
+#pros .pager a,
+#pros .pager span {
+  padding: 0 3px;
+}
+
+#pros .pager .list a,
+#pros .pager .list span {
+  padding: 0 4px;
+}
+
+#pros .pager a:hover {color: #f00}
+
+#pros .pager .disabled {color: #999}
+
+#pros .pager .current {
+  color: #000;
+  font-weight: bold;
+}
+
+#pros .pager .jump {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  padding: 0;
+  line-height: 24px;
+}
+
+/*poster view page
+------------------------------*/
+#pros div.poster img { display: block; background: #fff url(../img/common/lightbox_ico_loading.gif) no-repeat center center }
+
+/*#tooltip
+------------------------------*/
+#tooltip {
+  display: none;
+  position: absolute;
+  opacity: 0.9;
+  padding: 1px 2px;
+  border: 1px solid #888;
+  background-color: #333;
+  color: #fff;
+}
+
+/*产品展示*/
+.product_list{padding:10px 20px;border-top:0; overflow:hidden; width:740px;}
+.product_list ul li{ width:240px; height:210px; float:left; margin-right:0px; margin-top:10px;border-bottom:1px dotted #CCC;}
+.product_list ul li h4{ width:150px; height:150px; padding: 0px 45px 10px 45px;}
+.product_list ul li h4 img{width:150px; height:150px;}
+.product_list ul li p{ine-height:18px;}
+
+.product_details{padding:10px 0px;border-top:0; overflow:hidden; width:780px;}
+.product_details_img{padding:10px;border-top:0; overflow:hidden; width:100%; text-align:center;}
+/*pagelist*/
+.pagelist{/*border: 1px solid #ccc;*/overflow:hidden;background-color: #666;padding:1px 5px 1px 5px;color:#ffffff !important;}
+.pagelist a{color:#ffffff; !important}
+.pagelist a:hover{color:#ff0000;}
+.red {/*border: 1px solid #ccc;*/overflow:hidden;	background-color: #ff6600;color: #ffffff;font-weight: bold;	padding:1px 5px 1px 5px;}
+.Column_content_news{ padding:0px 10px; width:97%;over-flow:hidden; zoom:1; line-height:22px;}
+.newstext_title{ width:100%; height:30px; line-height:30px; font-size:16px; font-weight:bold; padding:0px; color:#0658B7;text-align:center;margin-bottom:10px;}
+.img1{border: #573600 1px solid;margin-top:4px;}
+.box2{background:url(../images/main_11.jpg) no-repeat; width:170px; height:23px;line-height:23px;border:0px;padding-left:7px;}
+
+.pubdate_new{ width:100%; border:#ccc 1px solid; height:26px; line-height:26px; OVERFLOW: hidden; BACKGROUND-COLOR: #F1F1F1;text-align:center;margin-top:10px;}
+.pubdate{width:760px; border: #ccc 1px solid;height:26px; line-height:26px;  margin:10px; OVERFLOW: hidden; BACKGROUND-COLOR: #F1F1F1;text-align:center;}
+.pubdate_img{width:1000px; border: #ccc 1px solid;height:26px; line-height:26px;  margin:10px; OVERFLOW: hidden; BACKGROUND-COLOR: #F1F1F1;text-align:center;}
+
+.box{}
+

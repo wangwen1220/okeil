@@ -1,0 +1,163 @@
+@import "base_min.css";
+
+/* element
+------------------------------ */
+div.ceomail fieldset{
+  overflow:hidden;
+  margin:20px 0;
+  padding:10px 15px 20px;
+  padding-top: 0\9;
+  border:1px solid #3871A9;
+  background-color:#F3F8FC;
+  background: none\9;
+}
+
+div.ceomail fieldset p,
+div.ceomail fieldset label{padding-left:7px}
+
+div.ceomail legend{
+  margin-bottom: 10px\9;/*for IE 6/7/8*/
+  font-weight:bold;
+  font-size:1.2em;
+  background-color:#3871A9;
+  color:#fff;
+  padding:0 .5em;
+  text-transform:capitalize;
+}
+
+div.ceomail label{
+  display:inline-block;
+  width:5em;
+  *width:6em;
+  text-transform:capitalize;
+  padding-right:5px;
+  text-align:right;
+}
+
+div.ceomail input,
+div.ceomail textarea{
+  border:1px solid #108AC6;
+  background-color:white;
+}
+
+div.ceomail textarea{padding:4px}
+
+
+div.ceomail textarea:focus{
+  border-color:#9DCB00;
+}
+
+div.ceomail input:focus{
+  background-color:#F4FBE6;
+  border-color:#9DCB00;
+}
+
+.required{
+  font-size:.9em;
+  color:red;
+  font-style:italic;
+  font-weight:normal;
+}
+
+.mail{font-style:italic}
+
+/* div.ceomail
+---------------------------- */
+div.ceomail form{margin:0 20px}
+
+#intro p{
+  margin:0 0 5px;
+  text-align:justify;
+}
+
+#intro .text{text-indent:2em}
+
+#intro p em{
+  display:block;
+  text-align:right;
+}
+
+#intro p span{font-family:"Comic Sans MS",sans-serif}
+
+#mainContent label{
+  display: inline-block;
+  width:auto;
+  text-align:left;
+}
+
+#mainContent textarea{
+  display: inline-block;
+  width:500px;
+  height:120px;
+  vertical-align: top;
+  color:#888;
+}
+
+#mainContent textarea:focus{color:#000}
+
+#info{margin-bottom:25px}
+
+#info p{
+  font-size:1em;
+  font-style:italic;
+  text-transform:none;
+  color:#108AC6;
+  margin-bottom:5px;
+}
+
+#info ul{
+  overflow:hidden;
+  margin-left: -21px;
+  *margin-left: -30px;
+  zoom: 1;
+}
+
+#info li{
+  line-height:2.5em;
+  float:left;
+}
+
+#info li input{
+  margin-right: 10px;
+  *margin: 0;
+  width:155px;
+  height:20px;
+  line-height:20px;
+}
+
+div.ceomail .btn{
+  padding:0 20px 10px;
+  text-align:center;
+}
+
+div.ceomail .btn input{
+  margin-right:50px;
+  width:5em;
+  height:1.8em;
+  font-size:1.2em;
+  border-color:#108AC6;
+  background-color:white;
+  text-transform: uppercase;
+  _background-color:#3871A9;
+  color:black;
+  _color:white;
+  font-weight: bold;
+  *cursor:hand;
+}
+
+div.ceomail .btn input:hover{
+  color:white;
+  background-color:#3871A9;
+  cursor:pointer;
+}
+
+/* send.asp
+===================================*/
+#send{text-align:center}
+
+#send h1{text-transform:none}
+
+#send p{
+  margin:15px 0;
+  font-size:1.2em;
+}

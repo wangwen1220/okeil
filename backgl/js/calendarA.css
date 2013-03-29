@@ -1,0 +1,34 @@
+.body,td{
+font-family:"Arial";
+font-size:9pt;
+color:#5E5E5E;
+}
+.TrOut{
+background:#dddddd;
+height:26;
+border:1 solid #999999;
+border-top-color:#f4f4f4;
+border-left-color:#f4f4f4;
+}
+.TdOver{
+background:#eeeeee;
+height:20;
+border:1 solid #ffffff;
+border-top-color:#9c9c9c;
+border-left-color:#9c9c9c;
+color:red;
+}
+.TdOut{
+background:#eeeeee;
+height:20;
+border:1 solid #9c9c9c;
+border-top-color:#ffffff;
+border-left-color:#ffffff;
+}
+.input2 
+{
+	BORDER: #838383 1px solid;
+	BACKGROUND-COLOR: #dff0EE;
+	font-weight: normal;
+	line-height: 120%
+}

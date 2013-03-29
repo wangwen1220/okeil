@@ -1,0 +1,171 @@
+@import "base_min.css";
+@import "jqbox_min.css";
+
+#picview {
+  float: left;
+  margin: 20px;
+  width: 309px;/*only for IE6*/
+  display: inline;
+}
+
+#picview .view {
+  display: block;
+  width: 307px;
+  height: 307px;
+  overflow: hidden;
+  border: 1px solid #3871A9;
+  background: url(/img/common/load.gif) no-repeat center center;
+}
+
+#picview .view:hover {
+  border-color: #f00;
+}
+
+#picview .view_more {
+  display: block;
+  width: 150px;
+  height: 20px;
+  overflow: hidden;
+  margin: 10px auto;
+  background: black;
+  color: white;
+  text-align: center;
+}
+
+#picview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(/img/common/load.gif) no-repeat center center;
+}
+
+#pros .prosinfo {
+  float: left;
+  width: 400px;
+  margin: 20px 0;
+}
+
+#pros .prosinfo h3 {
+  padding: 0 4px 4px 4px;
+  border-bottom: 1px solid #ccc;
+}
+
+#pros .prosinfo dt {
+  margin: 4px 0 0 4px;
+  color: #000;
+}
+
+#pros .prosinfo dd {
+  margin: 2px 0 6px 4px;
+  color: #888;
+  text-transform: capitalize;
+}
+
+#color {
+  overflow: hidden;
+  margin-left: -5px;
+}
+
+#color li {
+  float: left;
+  display: inline;/*for IE6*/
+  margin: 2px 0 3px 5px;
+}
+
+#color li a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  text-indent: -9999px;
+}
+
+#color li a:hover,
+#color li.current a {border-color: green;}
+
+#color > li a:hover,
+#color > li.current a {
+  width: 32px;
+  height: 32px;
+  margin: -1px;
+  border-color: #777;
+}
+
+#color li a.white { background-color: #F9F9F9 }
+#color li a.gray { background-color: gray }
+#color li a.black { background-color: #000 }
+#color li a.blue { background-color: #165BDC }
+#color li a.brown { background-color: #CAB890 }
+#color li a.green { background-color: #559B00 }
+#color li a.cyan { background-color: #01DADA }
+#color li a.orange { background-color: #FF8000 }
+#color li a.pink { background-color: #F011A7 }
+#color li a.purple { background-color: #990099 }
+#color li a.red { background-color: #EC0000 }
+#color li a.yellow { background-color: yellow }
+#color li a.dark { background: #B98054 url(/img/common/bamboo_dark.png) center center }
+#color li a.light { background: #EBD6B8 url(/img/common/bamboo_light.png) center center }
+
+#relatedpros {
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  margin: 10px 20px;
+  padding-bottom: 15px;
+  border: 1px solid #ddd;
+  zoom: 1;
+}
+
+#relatedpros h2 {
+  padding: 3px 10px;
+  background: #ECECEC;
+  color: #3871A9;
+}
+
+#relatedpros li {
+  float: left;
+  width: 128px;
+  margin: 15px 0 0 15px;
+  display: inline;/*for IE6*/
+}
+
+#relatedpros li a.img {
+  display: block;
+  height: 126px;
+  overflow: hidden;
+  border: 1px solid #3871A9;
+  background: #fff url(/img/common/loading.gif) no-repeat 50% 50%;
+}
+
+#relatedpros li a.img:hover {
+  border-color: #EA573C;
+}
+
+#relatedpros li img {
+  display:block;
+  margin:0 auto;
+  width:100%;
+  height:100%;
+}
+
+#relatedpros li h4 {
+  width: 128px;
+  height: 18px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+#relatedpros li h4 a {
+  display: block;
+  text-align: center;
+  font: 1em/18px verdana, arial, sans-serif;
+}
+
+#relatedpros a.more {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  color: #666;
+  line-height: 30px;
+}

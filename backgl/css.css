@@ -1,0 +1,72 @@
+p{font-size:12.1px}
+td {font-size:12px; color:#000000}
+A {
+  color:#000000;
+  font-size:12px;
+  text-decoration: none;
+}
+A:VISITED {
+  color : #000000;
+  font-size:12px;
+  text-decoration: none;
+}
+A:HOVER{
+  color : #ff0000;
+  text-decoration: none;
+}
+A:ACTIVE {
+  color : ff0000;
+  font-size:12px;
+  text-decoration: none;
+}
+
+.wxcyz {color:#FFFFFF; font-size:12px;}
+
+body  {
+margin:0px; font:normal 12px ËÎÌו; 
+scrollbar-face-color:ffffff;
+scrollbar-shadow-color:C1C1BB;
+scrollbar-highlight-color:C1C1BB;
+scrollbar-3dlight-color:EBEBE4;
+scrollbar-darkshadow-color:EBEBE4;
+scrollbar-track-color:efefef;
+scrollbar-arrow-color:CACAB7;
+}
+
+.skin1{cursor: default;position: absolute;width: 116px;background-color: menu;visibility:hidden;border: 1px outset buttonface;; font-style:normal; font-variant:normal; font-weight:normal}
+.menuitems{padding-left:15px;padding-right:10px;}
+.underline {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+
+.box {
+	height: 20px;
+	width: 120px;
+
+}
+
+.toptext {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+	padding-left:20px;
+}
+
+.bigclass {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	font-weight: bold;
+	color: #0A3473;
+}
+
+.whitetext {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: bold;
+	color: #0A3473;
+	padding-left:10px;
+}

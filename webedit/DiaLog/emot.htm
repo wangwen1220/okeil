@@ -1,0 +1,98 @@
+﻿<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<script type="text/javascript" src="dialog.js"></script>
+
+<script type="text/javascript">
+document.write ("<link href='../Skins/Language/" + lang.ActiveLanguage + ".css' type='text/css' rel='stylesheet'>");
+document.write ("<link href='../Skins/Images_Css/" + config.Skin + "/dialog.css' type='text/css' rel='stylesheet'>");
+
+document.write ("<TITLE>" + lang["DlgEmot"] + "</TITLE>");
+
+function emotclick(){
+	if ("IMG"==event.srcElement.tagName.toUpperCase()) {
+		var url = relativePath2setPath(event.srcElement.getAttribute("src", 2).substr(3));
+		dialogArguments.insertHTML("<IMG id=eWebEditor_TempElement_Img SRC=" + url + ">");
+
+		var oTempElement = dialogArguments.eWebEditor.document.getElementById("eWebEditor_TempElement_Img");
+		oTempElement.src = url;
+		oTempElement.removeAttribute("id");
+
+		window.returnValue = null;
+		window.close();
+	}
+}
+document.onclick=emotclick;
+
+function InitDocument(){
+	adjustDialog();
+}
+</script>
+</HEAD>
+
+<BODY onload="InitDocument()">
+<table border=0 cellpadding=0 cellspacing=5 id=tabDialogSize><tr><td>
+
+
+<TABLE cellSpacing=5 border=0 align=center bgcolor=#FFFFFF>
+  <TBODY>
+  <TR>
+    <TD><IMG src="../Images/emot/01.gif"></TD>
+	<TD><IMG src="../Images/emot/02.gif"></TD>
+	<TD><IMG src="../Images/emot/03.gif"></TD>
+	<TD><IMG src="../Images/emot/04.gif"></TD>
+	<TD><IMG src="../Images/emot/05.gif"></TD>
+	<TD><IMG src="../Images/emot/06.gif"></TD>
+	<TD><IMG src="../Images/emot/07.gif"></TD>
+	<TD><IMG src="../Images/emot/08.gif"></TD>
+	<TD><IMG src="../Images/emot/09.gif"></TD>
+	<TD><IMG src="../Images/emot/10.gif"></TD></TR>
+  <TR>
+    <TD><IMG src="../Images/emot/11.gif"></TD>
+	<TD><IMG src="../Images/emot/12.gif"></TD>
+	<TD><IMG src="../Images/emot/13.gif"></TD>
+	<TD><IMG src="../Images/emot/14.gif"></TD>
+	<TD><IMG src="../Images/emot/15.gif"></TD>
+	<TD><IMG src="../Images/emot/16.gif"></TD>
+	<TD><IMG src="../Images/emot/17.gif"></TD>
+	<TD><IMG src="../Images/emot/18.gif"></TD>
+	<TD><IMG src="../Images/emot/19.gif"></TD>
+	<TD><IMG src="../Images/emot/20.gif"></TD></TR>
+  <TR>
+    <TD><IMG src="../Images/emot/21.gif"></TD>
+	<TD><IMG src="../Images/emot/22.gif"></TD>
+	<TD><IMG src="../Images/emot/23.gif"></TD>
+	<TD><IMG src="../Images/emot/24.gif"></TD>
+	<TD><IMG src="../Images/emot/25.gif"></TD>
+	<TD><IMG src="../Images/emot/26.gif"></TD>
+	<TD><IMG src="../Images/emot/27.gif"></TD>
+	<TD><IMG src="../Images/emot/28.gif"></TD>
+	<TD><IMG src="../Images/emot/29.gif"></TD>
+	<TD><IMG src="../Images/emot/30.gif"></TD></TR>
+  <TR>
+    <TD><IMG src="../Images/emot/31.gif"></TD>
+	<TD><IMG src="../Images/emot/32.gif"></TD>
+	<TD><IMG src="../Images/emot/33.gif"></TD>
+	<TD><IMG src="../Images/emot/34.gif"></TD>
+	<TD><IMG src="../Images/emot/35.gif"></TD>
+	<TD><IMG src="../Images/emot/36.gif"></TD>
+	<TD><IMG src="../Images/emot/37.gif"></TD>
+	<TD><IMG src="../Images/emot/38.gif"></TD>
+	<TD><IMG src="../Images/emot/39.gif"></TD>
+	<TD><IMG src="../Images/emot/40.gif"></TD></TR>
+  <TR>
+    <TD><IMG src="../Images/emot/41.gif"></TD>
+	<TD><IMG src="../Images/emot/42.gif"></TD>
+	<TD><IMG src="../Images/emot/43.gif"></TD>
+	<TD><IMG src="../Images/emot/44.gif"></TD>
+	<TD><IMG src="../Images/emot/45.gif"></TD>
+	<TD><IMG src="../Images/emot/46.gif"></TD>
+	<TD><IMG src="../Images/emot/47.gif"></TD>
+	<TD><IMG src="../Images/emot/48.gif"></TD>
+	<TD><IMG src="../Images/emot/49.gif"></TD>
+	<TD><IMG src="../Images/emot/50.gif"></TD></TR>
+</TBODY></TABLE>
+
+
+</td></tr></table>
+</BODY></HTML>

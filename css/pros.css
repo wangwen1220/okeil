@@ -1,0 +1,227 @@
+@import "base_min.css";
+@import "jqbox_min.css";
+
+/*class
+------------------------------*/
+.box {
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  margin: 20px;
+  padding-bottom: 10px;
+  border: 1px solid #ddd;
+  zoom: 1;
+}
+
+.box h2 {
+  padding: 3px 10px;
+  background-color: #ECECEC;
+  color: #3871A9;
+}
+
+.box h2 a:hover { margin-left: 2px; color: #3871A9; text-decoration: none; }
+
+/*layout
+------------------------------*/
+#pros h1 span{
+  position:absolute;
+  left:-9999px;
+}
+
+#pros .poster_nav{
+  margin:20px 20px 0;
+  padding:5px 15px !important;/*!important only for chrome*/
+  border:1px solid #8FB9EC;
+  background-color:#E3EDFB;
+}
+
+#pros .poster_nav li{
+  display:inline;
+  margin-right:15px;
+}
+
+#pros .poster_nav li strong{
+  margin-right: -10px;
+  font-weight: bold;
+}
+
+#pros .poster_nav li a{
+  text-decoration: underline;
+  color: black;
+}
+
+#pros .poster_nav li a:hover{
+  text-decoration: none;
+  color: #3871A9;
+}
+
+#pros div{
+  overflow:hidden;
+  display:inline;
+  position:relative;
+  left:20px;
+  float:left;
+  width:134px;
+  height:134px;
+  margin:20px 15px 0 0;
+  padding-bottom:18px;
+  border:1px solid #3871A9;
+}
+
+#pros.poster div{
+  width:287px;
+  height:auto;
+  border:none;
+  padding-bottom:5px;
+}
+
+#pros div:hover{
+  border-color:#EA573C;
+  background:#fff;
+}
+
+#pros.poster div h2{
+  padding-left:15px;
+  height:20px;
+  overflow:hidden;
+  background:url(../img/common/sprite_icon.png) no-repeat -150px -80px;
+  font-size:1.2em
+}
+
+#pros div h3{
+  overflow:hidden;
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:18px;
+  line-height:19px;
+  text-align:center;
+  background-color:#3871A9;
+  color:#fff;
+  font:1em/18px verdana,arial,sans-serif;
+}
+
+#pros div h3 a{
+  background-color:#3871A9;
+  color:#fff;
+}
+
+#pros h3 span{display:none}
+
+#pros div span{
+  position:absolute;
+  left:0;
+  top:0;
+  padding: 0 3px;
+  background-color:#444;
+  color:#fff;
+  font:12m/14px verdana,arial,sans-serif;
+  height: 0;
+  overflow: hidden;
+}
+
+#pros.poster div li{
+  zoom:1;
+  padding-left:5px;
+  border-bottom:1px dotted #999;
+  line-height:2em;
+}
+
+#pros.poster div li.first{border-top:1px dotted #999}
+
+#pros.poster div li strong{
+  padding-right:2px;
+  color:#3871A9;
+}
+
+#pros div a{
+  display:block;
+  background-color:#fff;
+}
+
+#pros div img{
+  display:block;
+  margin:0 auto;
+  width:134px;
+  height:134px;
+  background:#fff url(/img/common/loading.gif) no-repeat 50% 50%;
+}
+
+#pros.poster div a{
+  margin:5px 0 10px;
+  border:6px solid #E3EDFB;
+}
+
+#pros.poster div a:hover{border-color:#8FB9EC;}
+
+#pros.poster div img{
+  width:275px;
+  height:300px;
+}
+
+#main .types ul { overflow: hidden }
+
+#main .types li {
+  display: inline;
+  float: left;
+  margin: 10px 10px 0;
+  width: 33px;
+  color: #000;
+}
+
+#main .types li a { color: #000 }
+
+#main .types li a:hover {
+  background-color: #B0D6F0;
+  text-decoration: none;
+  cursor: default;
+}
+
+/*#pager
+------------------------------*/
+#pros div.hide{display:none;}
+
+#pager {
+  clear: both;
+  position: relative;
+  top: 18px;
+  height: 24px;
+  overflow: hidden;
+  margin:20px;
+  padding-left: 10px;
+  border: 1px solid #BFD8ED;
+  background-color: #E7F1FA;
+  line-height: 24px;
+}
+
+#pager a,
+#pager span {
+  padding: 3px;
+}
+
+#pager .list a,
+#pager .list span {
+  padding: 3px 4px;
+}
+
+#pager a:hover {
+  color: #f00;
+}
+
+#pager .disabled { color: #999; }
+
+#pager em,
+#pager .current {
+  color: #000;
+  font-weight: bold;
+}
+
+#pager .jump {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  height: 24px;
+  padding: 0;
+  line-height: 24px;
+}

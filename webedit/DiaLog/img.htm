@@ -1,0 +1,590 @@
+﻿<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<SCRIPT TYPE="text/javascript" SRC="dialog.js"></SCRIPT>
+
+<SCRIPT TYPE="text/javascript">
+document.write ("<link href='../Skins/Language/" + lang.ActiveLanguage + ".css' type='text/css' rel='stylesheet'>");
+document.write ("<link href='../Skins/Images_Css/" + config.Skin + "/dialog.css' type='text/css' rel='stylesheet'>");
+
+var sAction = "INSERT";
+var sTitle = lang["DlgComInsert"];
+
+var oControl;
+var oSeletion;
+var sRangeType;
+
+var sFromUrl = "http://";
+var sAlt = "";
+var sBorder = "0";
+var sBorderColor = "";
+var sFilter = "";
+var sAlign = "";
+var sWidth = "";
+var sHeight = "";
+var sVSpace = "";
+var sHSpace = "";
+
+var sSLTUrl = "";
+var sCheckFlag = "file";
+
+var bAllowUpload = ((parseFloat(config.AllowImageSize)>0) ? true : false);
+var bSYWZFlag = (((config.SYWZFlag=="2"||config.SYWZFlag=="3")) ? true : false);
+var bSYTPFlag = (((config.SYTPFlag=="2"||config.SYTPFlag=="3")) ? true : false);
+var bSLTFlag = (((config.SLTFlag=="2"||config.SLTFlag=="3")) ? true : false);
+oSelection = dialogArguments.eWebEditor.document.selection.createRange();
+sRangeType = dialogArguments.eWebEditor.document.selection.type;
+
+if (sRangeType == "Control") {
+	if (oSelection.item(0).tagName == "IMG"){
+		sAction = "MODI";
+		sTitle = lang["DlgComModify"];
+		sCheckFlag = "url";
+		oControl = oSelection.item(0);
+		sFromUrl = oControl.getAttribute("src", 2);
+		sAlt = oControl.alt;
+		sBorder = oControl.border;
+		sBorderColor = oControl.style.borderColor;
+		sFilter = oControl.style.filter;
+		sAlign = oControl.align;
+		sWidth = oControl.width;
+		sHeight = oControl.height;
+		sVSpace = oControl.vspace;
+		sHSpace = oControl.hspace;
+	}
+}
+
+
+document.write("<title>" + lang["DlgImg"] + "(" + sTitle + ")</title>");
+
+
+function InitDocument(){
+	lang.TranslatePage(document);
+
+	SearchSelectValue(d_filter, sFilter);
+	SearchSelectValue(d_align, sAlign.toLowerCase());
+
+	if (!bAllowUpload){
+		sCheckFlag = "url";
+	}
+	RadioClick(sCheckFlag);
+
+	d_fromurl.value = sFromUrl;
+	d_alt.value = sAlt;
+	d_border.value = sBorder;
+	d_bordercolor.value = sBorderColor;
+	s_bordercolor.style.backgroundColor = sBorderColor;
+	d_width.value = sWidth;
+	d_height.value = sHeight;
+	d_vspace.value = sVSpace;
+	d_hspace.value = sHSpace;
+
+	doPreview();
+	
+	adjustDialog();
+}
+
+
+function RadioClick(what){
+	if (what=="url"){
+		d_fromurl.disabled=false;
+		if (config.AllowBrowse=="1"){
+			d_browse.disabled=false;
+		}
+		d_checkfromurl.checked=true;
+		if (bAllowUpload){
+			d_checkfromfile.checked=false;
+			document.myuploadform.uploadfile.disabled=true;
+		}
+	}else{
+		d_checkfromurl.checked=false;
+		document.myuploadform.uploadfile.disabled=false;
+		d_checkfromfile.checked=true;
+		d_fromurl.disabled=true;
+		if (config.AllowBrowse=="1"){
+			d_browse.disabled=true;
+		}
+	}
+}
+
+
+function UploadError(s_Flag){
+	AbleItems();
+	RadioClick('file');
+	divProcessing.style.display="none";
+	try {
+		BaseAlert(document.myuploadform.uploadfile, getUploadErrDesc(s_Flag, config.AllowImageExt, config.AllowImageSize));
+	}
+	catch(e){}
+}
+
+
+function UploadSaved(sPathFileName, sPathFileName_s){
+	d_fromurl.value = sPathFileName;
+	sSLTUrl = sPathFileName_s;
+	ReturnValue();
+}
+
+
+function ReturnValue(){
+	sFromUrl = d_fromurl.value;
+	sAlt = d_alt.value;
+	sBorder = d_border.value;
+	sBorderColor = d_bordercolor.value;
+	sFilter = d_filter.options[d_filter.selectedIndex].value;
+	sAlign = d_align.value;
+	sWidth = d_width.value;
+	sHeight = d_height.value;
+	sVSpace = d_vspace.value;
+	sHSpace = d_hspace.value;
+
+	if (sAction == "MODI") {
+		if (sSLTUrl){
+			oControl.src = sSLTUrl;
+		}else{
+			oControl.src = sFromUrl;
+		}
+		oControl.alt = sAlt;
+		oControl.border = sBorder;
+		oControl.style.borderColor = sBorderColor;
+		oControl.style.filter = sFilter;
+		oControl.align = sAlign;
+		oControl.width = sWidth;
+		oControl.height = sHeight;
+		oControl.style.width = sWidth;
+		oControl.style.height = sHeight;
+		oControl.vspace = sVSpace;
+		oControl.hspace = sHSpace;
+		if (sSLTUrl){
+			oSelection.execCommand("CreateLink",false,sFromUrl);
+			var oSel = oSelection(0).parentNode;
+			oSel.target = "_blank";
+		}
+	}else{
+		var sHTML = '';
+		if (sFilter!=""){
+			sHTML=sHTML+'filter:'+sFilter+';';
+		}
+		if (sBorderColor!=""){
+			sHTML=sHTML+'border-color:'+sBorderColor+';';
+		}
+		if (sHTML!=""){
+			sHTML=' style="'+sHTML+'"';
+		}
+		if (sSLTUrl){
+			sHTML = '<img id=eWebEditor_TempElement_Img src="'+sSLTUrl+'"'+sHTML;
+		}else{
+			sHTML = '<img id=eWebEditor_TempElement_Img src="'+sFromUrl+'"'+sHTML;
+		}
+		if (sBorder!=""){
+			sHTML=sHTML+' border="'+sBorder+'"';
+		}
+		if (sAlt!=""){
+			sHTML=sHTML+' alt="'+sAlt+'"';
+		}
+		if (sAlign!=""){
+			sHTML=sHTML+' align="'+sAlign+'"';
+		}
+		if (sWidth!=""){
+			sHTML=sHTML+' width="'+sWidth+'"';
+		}
+		if (sHeight!=""){
+			sHTML=sHTML+' height="'+sHeight+'"';
+		}
+		if (sVSpace!=""){
+			sHTML=sHTML+' vspace="'+sVSpace+'"';
+		}
+		if (sHSpace!=""){
+			sHTML=sHTML+' hspace="'+sHSpace+'"';
+		}
+		sHTML=sHTML+'>';
+		if (sSLTUrl){
+			sHTML = '<a id=eWebEditor_TempElement_Img_Href href="'+sFromUrl+'" target="_blank">'+sHTML+'</a>';
+		}
+		dialogArguments.insertHTML(sHTML);
+
+		var oTempElement = dialogArguments.eWebEditor.document.getElementById("eWebEditor_TempElement_Img");
+		if (sSLTUrl){
+			oTempElement.src = sSLTUrl;
+			var oTempElementHref = dialogArguments.eWebEditor.document.getElementById("eWebEditor_TempElement_Img_Href");
+			oTempElementHref.setAttribute("href", sFromUrl);
+			oTempElementHref.removeAttribute("id");
+		}else{
+			oTempElement.src = sFromUrl;
+		}
+		oTempElement.removeAttribute("id");
+
+	}
+
+	window.returnValue = null;
+	window.close();
+}
+
+function ok(){
+	d_border.value = ToInt(d_border.value);
+	d_width.value = ToInt(d_width.value);
+	d_height.value = ToInt(d_height.value);
+	d_vspace.value = ToInt(d_vspace.value);
+	d_hspace.value = ToInt(d_hspace.value);
+	if (!IsColor(d_bordercolor.value)){
+		BaseAlert(d_bordercolor,lang["DlgImgErrBorColor"]);
+		return false;
+	}
+	if (d_checkfromurl.checked){
+		ReturnValue();
+	}else{
+		if (!IsExt(document.myuploadform.uploadfile.value,config.AllowImageExt)){
+			UploadError("ext");
+			return false;
+		}
+	
+		if (bSYWZFlag){
+			if (d_SYWZFlag.checked){
+				document.myuploadform.action += "&SYWZFlag=1";
+			}
+		}
+		if (bSYTPFlag){
+			if (d_SYTPFlag.checked){
+				document.myuploadform.action += "&sytpflag=1";
+			}
+		}
+		if (bSLTFlag){
+			if (d_SLTFlag.checked){
+				document.myuploadform.action += "&sltflag=1";
+			}
+		}
+		DisableItems();
+		divProcessing.style.display="";
+		
+
+		
+		document.myuploadform.submit();
+	}
+}
+
+
+function DisableItems(){
+	d_checkfromfile.disabled=true;
+	d_checkfromurl.disabled=true;
+	d_fromurl.disabled=true;
+	if (config.AllowBrowse=="1"){
+		d_browse.disabled=true;
+	}
+	d_alt.disabled=true;
+	d_border.disabled=true;
+	d_bordercolor.disabled=true;
+	d_filter.disabled=true;
+	d_align.disabled=true;
+	d_width.disabled=true;
+	d_height.disabled=true;
+	d_vspace.disabled=true;
+	d_hspace.disabled=true;
+	Ok.disabled=true;
+}
+
+
+function AbleItems(){
+	d_checkfromfile.disabled=false;
+	d_checkfromurl.disabled=false;
+	d_fromurl.disabled=false;
+	if (config.AllowBrowse=="1"){
+		d_browse.disabled=false;
+	}
+	d_alt.disabled=false;
+	d_border.disabled=false;
+	d_bordercolor.disabled=false;
+	d_filter.disabled=false;
+	d_align.disabled=false;
+	d_width.disabled=false;
+	d_height.disabled=false;
+	d_vspace.disabled=false;
+	d_hspace.disabled=false;
+	Ok.disabled=false;
+}
+
+function doPreview(){
+	var url;
+	if (d_checkfromurl.checked){
+		url = d_fromurl.value;
+		if(config.BaseHref!=""){
+			url = config.BaseHref + url;
+		}
+	}else{
+		url = document.myuploadform.uploadfile.value;
+	}
+	
+	if (url.lastIndexOf(".")<=0){
+		setPreviewError();
+		return;
+	}
+
+
+	var b_IE7Local = false;
+	if ((bAllowUpload)&&(myBrowser.IsIE7)){
+		if (d_checkfromfile.checked){
+			b_IE7Local = true;
+		}
+	}
+
+	if (url){
+		if (b_IE7Local){
+			setPreviewIE7(url);
+		}else{
+			imgPreview.src = url;
+		}
+	}else{
+		tdPreview.innerHTML = "";
+	}
+
+}
+
+function setPreview(){
+	var width = imgPreview.width;
+	var height = imgPreview.height;
+	if (imgPreview.src){
+		var boxWidth = tdPreview.offsetWidth;
+		var boxHeight = tdPreview.offsetHeight;
+		if ((width>boxWidth)||(height>boxHeight)){
+			var nw = boxWidth/width;
+			var nh = boxHeight/height;
+			if (nw>nh){
+				height = boxHeight;
+				width = width*nh;
+			}else{
+				width = boxWidth;
+				height = height*nw;
+			}
+		}
+		tdPreview.innerHTML = "<img border=0 src='"+imgPreview.src+"' width='"+width+"' height='"+height+"' style=\"filter:"+d_filter.value+"\">";
+		tdPreviewSize.innerHTML = imgPreview.width+" * "+imgPreview.height;
+	}
+}
+
+function setPreviewError(){
+	tdPreview.innerHTML = "";
+	tdPreviewSize.innerHTML = "";
+}
+
+function setPreviewIE7(url){
+	var bw = tdPreview.offsetWidth;
+	var bh = tdPreview.offsetHeight;
+
+	tdPreview.innerHTML = "<div id=imgPreviewDiv style=\"filter : progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image) "+d_filter.value+";WIDTH:10px; HEIGHT:10px;\"></div>";
+	imgPreviewDiv.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = url;
+	var w = imgPreviewDiv.offsetWidth;
+	var h = imgPreviewDiv.offsetHeight;
+	var sw,sh;
+
+	if ((w>bw)||(h>bh)){
+		var nw = bw/w;
+		var nh = bh/h;
+		if (nw>nh){
+			sh = bh;
+			sw = w*nh;
+		}else{
+			sw = bw;
+			sh = h*nw;
+		}
+	}else{
+		sw = w;
+		sh = h;
+	}
+
+	imgPreviewDiv.style.width = sw;
+	imgPreviewDiv.style.height = sh;
+	imgPreviewDiv.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").sizingMethod = 'scale';	
+
+	tdPreviewSize.innerHTML = w+" * "+h;
+}
+
+
+</SCRIPT>
+
+<BODY onLoad="InitDocument()">
+<TABLE border=0 cellpadding=0 cellspacing=5 id=tabDialogSize><TR><TD>
+
+
+<TABLE border=0 cellpadding=0 cellspacing=5 align=center>
+<TR valign=top><TD WIDTH="60%">
+
+	<TABLE border=0 cellpadding=0 cellspacing=0 align=center WIDTH="100%">
+	<TR>
+		<TD>
+		<FIELDSET>
+		<LEGEND><SPAN lang=DlgImgSource></SPAN></LEGEND>
+		<TABLE border=0 cellpadding=5 cellspacing=0 WIDTH="100%">
+		<TR><TD>
+
+			<TABLE border=0 cellpadding=0 cellspacing=0 WIDTH="300px"><TR><TD></TD></TR></TABLE>
+			<TABLE border=0 cellpadding=0 cellspacing=2 WIDTH="100%">
+			<SCRIPT TYPE="text/javascript">
+			if (bAllowUpload){
+				document.write("<tr>");
+				document.write("<td noWrap width=\"20%\"><input type=radio id=\"d_checkfromfile\" value=\"1\" onclick=\"RadioClick('file')\"><label for=d_checkfromfile>"+lang["DlgFromFile"]+"</label>:</td>");
+				document.write("<td noWrap width=\"80%\">");
+				document.write(getUploadForm("image"));
+				document.write("</td>");
+				document.write("</tr>");
+			}
+			</SCRIPT>
+			<TR>
+				<TD noWrap WIDTH="20%"><INPUT type=radio ID="d_checkfromurl" VALUE="1" onClick="RadioClick('url')"><LABEL for=d_checkfromurl><SPAN lang=DlgFromUrl></SPAN></LABEL>:</TD>
+				<TD noWrap WIDTH="80%">
+				<SCRIPT TYPE="text/javascript">
+				if (config.AllowBrowse=="1"){
+					document.write("<table border=0 cellpadding=0 cellspacing=0 width='100%'><tr><td width='100%'><input type=text id='d_fromurl' style='width:100%' size=20 value='' onpropertychange=\"if (event.propertyName=='value'){doPreview()}\"></td><td><input class='dlgBtnBrowse' type=button id='d_browse' onclick=\"SelectBrowse('image','fromurl')\" value='"+lang["DlgBtnBrowse"]+"' align=absmiddle></td></tr></table>");
+				} else {
+					document.write("<input type=text id='d_fromurl' style='width:100%' size=30 value='' onpropertychange=\"if (event.propertyName=='value'){doPreview()}\">");
+				}
+				</SCRIPT>
+				</TD>
+			</TR>
+			</TABLE>
+
+		</TD></TR>
+		</TABLE>
+		</FIELDSET>
+		</TD>
+	</TR>
+	<TR><TD height=5></TD></TR>
+	<TR>
+		<TD>
+		<FIELDSET>
+		<LEGEND><SPAN lang=DlgImgEffect></SPAN></LEGEND>
+		<TABLE border=0 cellpadding=5 cellspacing=0 WIDTH="100%">
+		<TR><TD>
+
+			<TABLE border=0 cellpadding=0 cellspacing=2 WIDTH="100%">
+			<TR>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgAlt></SPAN>:</TD>
+				<TD noWrap WIDTH="80%" colspan=4><INPUT type=text id=d_alt size=10 VALUE="" STYLE="width:100%"></TD>
+			</TR>
+			<TR>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgBorder></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:80px" type=text id=d_border size=10 VALUE="" ONKEYPRESS="event.returnValue=IsDigit();"></TD>
+				<TD WIDTH="2%">&nbsp;</TD>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgBorderColor></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:62px" type=text id=d_bordercolor size=7 VALUE=""><IMG border=0 SRC="../Images/rect.gif" width=18 STYLE="cursor:hand" id=s_bordercolor onClick="SelectColor('bordercolor')" align=absmiddle></TD>
+			</TR>
+			<TR>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgSpecEffect></SPAN>:</TD>
+				<TD noWrap WIDTH="29%">
+					<SELECT id=d_filter size=1 STYLE="width:80px" onChange="doPreview()">
+					<OPTION value='' selected lang=DlgComNone></OPTION>
+					<OPTION value='Alpha(Opacity=50)' lang=DlgImgAlpha1></OPTION>
+					<OPTION value='Alpha(Opacity=0, FinishOpacity=100, Style=1, StartX=0, StartY=0, FinishX=100, FinishY=140)' lang=DlgImgAlpha2></OPTION>
+					<OPTION value='Alpha(Opacity=10, FinishOpacity=100, Style=2, StartX=30, StartY=30, FinishX=200, FinishY=200)' lang=DlgImgAlpha3></OPTION>
+					<OPTION value='blur(add=1,direction=14,strength=15)' lang=DlgImgBlur1></OPTION>
+					<OPTION value='blur(add=true,direction=45,strength=30)' lang=DlgImgBlur2></OPTION>
+					<OPTION value='Wave(Add=0, Freq=60, LightStrength=1, Phase=0, Strength=3)' lang=DlgImgWave></OPTION>
+					<OPTION value='gray' lang=DlgImgGray></OPTION>
+					<OPTION value='Chroma(Color=#FFFFFF)' lang=DlgImgChroma></OPTION>
+					<OPTION value='DropShadow(Color=#999999, OffX=7, OffY=4, Positive=1)' lang=DlgImgDropShadow></OPTION>
+					<OPTION value='Shadow(Color=#999999, Direction=45)' lang=DlgImgShadow></OPTION>
+					<OPTION value='Glow(Color=#ff9900, Strength=5)' lang=DlgImgGlow></OPTION>
+					<OPTION value='flipv' lang=DlgImgFlipv></OPTION>
+					<OPTION value='fliph' lang=DlgImgFliph></OPTION>
+					<OPTION value='grays' lang=DlgImgGrays></OPTION>
+					<OPTION value='xray' lang=DlgImgXray></OPTION>
+					<OPTION value='invert' lang=DlgImgInvert></OPTION>
+					</SELECT>		
+				</TD>
+				<TD WIDTH="2%">&nbsp;</TD>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgAlign></SPAN>:</TD>
+				<TD noWrap WIDTH="29%">
+					<SELECT id=d_align size=1 STYLE="width:80px">
+					<OPTION value='' selected lang=DlgComDefault></OPTION>
+					<OPTION value='left' lang=DlgAlignLeft></OPTION>
+					<OPTION value='right' lang=DlgAlignRight></OPTION>
+					<OPTION value='top' lang=DlgAlignTop></OPTION>
+					<OPTION value='middle' lang=DlgAlignMiddle></OPTION>
+					<OPTION value='bottom' lang=DlgAlignBottom></OPTION>
+					<OPTION value='absmiddle' lang=DlgAlignAbsmiddle></OPTION>
+					<OPTION value='absbottom' lang=DlgAlignAbsbottom></OPTION>
+					<OPTION value='baseline' lang=DlgAlignBaseline></OPTION>
+					<OPTION value='texttop' lang=DlgAlignTexttop></OPTION>
+					</SELECT>
+				</TD>
+			</TR>
+			<TR>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgWidth></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:80px" type=text id=d_width size=10 VALUE="" ONKEYPRESS="event.returnValue=IsDigit();" maxlength=4></TD>
+				<TD WIDTH="2%">&nbsp;</TD>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgHeight></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:80px" type=text id=d_height size=10 VALUE="" ONKEYPRESS="event.returnValue=IsDigit();" maxlength=4></TD>
+			</TR>
+			<TR>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgVSpace></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:80px" type=text id=d_vspace size=10 VALUE="" ONKEYPRESS="event.returnValue=IsDigit();" maxlength=2></TD>
+				<TD WIDTH="2%">&nbsp;</TD>
+				<TD noWrap WIDTH="20%"><SPAN lang=DlgImgHSpace></SPAN>:</TD>
+				<TD noWrap WIDTH="29%"><INPUT STYLE="width:80px" type=text id=d_hspace size=10 VALUE="" ONKEYPRESS="event.returnValue=IsDigit();" maxlength=2></TD>
+			</TR>
+			</TABLE>
+
+		</TD></TR>
+		</TABLE>
+		</FIELDSET>
+		</TD>
+	</TR>
+	</TABLE>
+
+
+</TD><TD WIDTH="40%" HEIGHT="100%">
+	
+		<FIELDSET STYLE="height:100%">
+		<LEGEND><SPAN lang=DlgImgPreview></SPAN></LEGEND>
+		<TABLE border=0 cellpadding=0 cellspacing=5 WIDTH="200" HEIGHT="200" valign=top>
+		<TR><TD colspan=2 bgcolor=#FFFFFF align=center valign=middle id=tdPreview HEIGHT="100%">
+
+		</TD></TR>
+		<TR><TD id=tdPreviewSize></TD><TD align=right><INPUT type=button id=btnPreivew onClick="doPreview()" lang=DlgImgPreview></TD></TR>
+		</TABLE>
+		</FIELDSET>
+
+</TD></TR>
+<TR>
+	<TD noWrap>
+		<SCRIPT TYPE="text/javascript">
+		if (bSYWZFlag){
+		  if (config.SYWZFlag=="3") {
+		  	document.write("<input type=checkbox id=d_SYWZFlag value='1' ><label for=d_sywzflag><span lang=DlgImgWZSYFlag></span></label>");
+			}
+			else {
+			document.write("<input type=checkbox id=d_SYWZFlag value='1'><label for=d_sywzflag><span lang=DlgImgWZSYFlag></span></label>");
+			}
+		}
+		if (bSYTPFlag){
+		  if (config.SYTPFlag=="3"){
+			document.write("<input type=checkbox id=d_SYTPFlag value='1' ><label for=d_sytpflag><span lang=DlgImgTPSYFlag></span></label>");
+		  }
+		   else{
+			document.write("<input type=checkbox id=d_SYTPFlag value='1'><label for=d_sytpflag><span lang=DlgImgTPSYFlag></span></label>");
+		   }
+		   }
+		if (bSLTFlag){
+		  if (config.SLTFlag=="3"){
+			document.write("<input type=checkbox id=d_SLTFlag value='1' ><label for=d_sltflag><span lang=DlgImgSLTFlag></span></label>");
+		  }
+		  else{
+			document.write("<input type=checkbox id=d_SLTFlag value='1'><label for=d_sltflag><span lang=DlgImgSLTFlag></span></label>");
+		}
+		}
+		</SCRIPT>
+	</TD>
+	<TD noWrap align=right><INPUT type=submit CLASS="dlgBtnCommon" value='' id=Ok onClick="ok()" lang=DlgBtnOK>&nbsp;&nbsp;<INPUT type=button CLASS="dlgBtnCommon" value='' onClick="window.close();" lang=DlgBtnCancel></TD>
+</TR>
+</TABLE>
+
+
+</TD></TR></TABLE>
+
+
+<DIV id=divProcessing STYLE="width:200px;height:30px;position:absolute;left:70px;top:100px;display:none">
+<TABLE border=0 cellpadding=0 cellspacing=1 BGCOLOR="#000000" WIDTH="100%" HEIGHT="100%"><TR><TD bgcolor=#3A6EA5><MARQUEE ALIGN="middle" BEHAVIOR="alternate" SCROLLAMOUNT="5"><FONT color=#FFFFFF><SPAN lang=DlgComUploading></SPAN></FONT></MARQUEE></TD></TR></TABLE>
+</DIV>
+<IMG id=imgPreview src='' border=0 STYLE="visibility:hidden" ONLOAD="setPreview()" ONERROR="setPreviewError()">
+
+
+</BODY>
+</HTML>

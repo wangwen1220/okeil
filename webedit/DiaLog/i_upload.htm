@@ -1,0 +1,421 @@
+﻿<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<SCRIPT TYPE="text/javascript" SRC="dialog.js"></SCRIPT>
+
+<SCRIPT TYPE="text/javascript">
+String.prototype.Contains = function(s){
+	return (this.indexOf(s)>-1);
+};
+
+/////////////////////////////////////////////////////////////
+
+myBrowser = new Object();
+myBrowser_Init();
+
+function myBrowser_Init(){
+	var s = navigator.userAgent.toLowerCase();
+	myBrowser.IsIE = s.Contains('msie');
+	myBrowser.IsIE7 = s.Contains('msie 7');
+	myBrowser.IsSP2 = s.Contains("sv1");
+	myBrowser.IsGecko = s.Contains('gecko/');
+	myBrowser.IsSafari = s.Contains('safari');
+	myBrowser.IsOpera = s.Contains('opera');
+	myBrowser.IsMac = s.Contains('macintosh');
+	myBrowser.IsCompatible = myBrowser_IsCompatible();
+
+	if (!myBrowser.IsCompatible){
+		alert(lang["MsgNotCompatibleFunc"]);
+		window.returnValue = null;
+		window.close();
+	}
+}
+
+function myBrowser_IsCompatible(){
+	if ( myBrowser.IsIE && !myBrowser.IsMac && !myBrowser.IsOpera ){
+		var s_Ver = navigator.appVersion.match(/MSIE (.\..)/)[1];
+		return ( s_Ver >= 5.5 );
+	}
+	return false;
+}
+
+/////////////////////////////////////////////////////////////
+
+config = new Object();
+config.StyleName = GetParam("style", "coolblue");
+config.CusDir = GetParam("cusdir", "");
+
+var pType = GetParam("type", "image").toLowerCase();
+var pLink = GetParam("link", "");
+var pThumbnail = GetParam("thumbnail", "");
+var pLang = GetParam("lang", "");
+
+var oLink,oThumbnail;
+if (pLink){
+	try{
+		eval("oLink=dialogArguments.document."+pLink);
+	}catch(e){}
+}
+if (pThumbnail){
+	try{
+		eval("oThumbnail=dialogArguments.document."+pThumbnail);
+	}catch(e){}
+}
+if (!oLink){
+	alert(lang["DlgIUploadErrLink"]);
+	window.returnValue = null;
+	window.close();
+}
+
+LoadScript("../Skins/style/"+config.StyleName+".js");
+</SCRIPT>
+
+
+<SCRIPT TYPE="text/javascript">
+
+lang = new Object();
+
+lang.AvailableLangs = {
+	"da"	: true,
+	"de"	: true,
+	"en"	: true,
+	"fr"	: true,
+	"it"	: true,
+	"es"	: true,
+	"ja"	: true,
+	"nl"	: true,
+	"no"	: true,
+	"pt"	: true,
+	"ru"	: true,
+	"sv"	: true,
+	"zh-cn"	: true,
+	"zh-tw"	: true
+};
+
+lang.GetActiveLanguage = function(){
+	if (pLang){
+		return pLang;
+	}
+
+	if ( config.AutoDetectLanguage=="1" ){
+		var sUserLang;
+		if ( navigator.userLanguage ){
+			sUserLang = navigator.userLanguage.toLowerCase();
+		}else if ( navigator.language ){
+			sUserLang = navigator.language.toLowerCase();
+		}else{
+			return this.DefaultLanguage;
+		}
+
+		if ( this.AvailableLangs[sUserLang] ){
+			return sUserLang;
+		}else if ( sUserLang.length > 2 ){
+			sUserLang = sUserLang.substr(0,2);
+			if ( this.AvailableLangs[sUserLang] ){
+				return sUserLang;
+			}
+		}
+	}
+	return this.DefaultLanguage;
+};
+
+lang.TranslatePage = function( targetDocument ){
+	var aInputs = targetDocument.getElementsByTagName("INPUT");
+	for ( i = 0 ; i < aInputs.length ; i++ ){
+		if ( aInputs[i].getAttribute("lang") ){
+			aInputs[i].value = lang[ aInputs[i].getAttribute("lang") ];
+		}
+	}
+
+	var aSpans = targetDocument.getElementsByTagName("SPAN");
+	for ( i = 0 ; i < aSpans.length ; i++ ){
+		if ( aSpans[i].getAttribute("lang") ){
+			aSpans[i].innerHTML = lang[ aSpans[i].getAttribute("lang") ];
+		}
+	}
+
+	var aOptions = targetDocument.getElementsByTagName("OPTION");
+	for ( i = 0 ; i < aOptions.length ; i++ ){
+		if ( aOptions[i].getAttribute("lang") ){
+			aOptions[i].innerHTML = lang[ aOptions[i].getAttribute("lang") ];
+		}
+	}
+};
+
+lang.Init = function(){
+	if ( this.AvailableLangs[ config.DefaultLanguage ] ){
+		this.DefaultLanguage = config.DefaultLanguage;
+	}else{
+		this.DefaultLanguage = "en";
+	}
+
+	this.ActiveLanguage = this.GetActiveLanguage();
+};
+
+
+lang.Init();
+alert(""+lang.ActiveLanguage+"")
+LoadScript("../Skins/Language/" + lang.ActiveLanguage + ".js");
+</SCRIPT>
+
+
+<SCRIPT TYPE="text/javascript">
+var sTitle, bAllowUpload, sAllowExt, sAllowSize;
+
+switch(pType){
+case "image":
+	sTitle=lang["DlgIUploadImage"];
+	sAllowExt = config.AllowImageExt;
+	sAllowSize = config.AllowImageSize;
+	break;
+case "flash":
+	sTitle=lang["DlgIUploadFlash"];
+	sAllowExt = config.AllowFlashExt;
+	sAllowSize = config.AllowFlashSize;
+	break;
+case "media":
+	sTitle=lang["DlgIUploadMedia"];
+	sAllowExt = config.AllowMediaExt;
+	sAllowSize = config.AllowMediaSize;
+	break;
+default:
+	pType="file";
+	sTitle=lang["DlgIUploadFile"];
+	sAllowExt = config.AllowFileExt;
+	sAllowSize = config.AllowFileSize;
+	break;
+}
+sTitle = lang["DlgIUpload"]+"("+sTitle+")";
+bAllowUpload = ((parseFloat(sAllowSize)>0) ? true : false);
+var bSYWZFlag = (((config.SYWZFlag=="2"||config.SYWZFlag=="3")) ? true : false);
+var bSYTPFlag = (((config.SYTPFlag=="2"||config.SYTPFlag=="3")) ? true : false);
+var bSLTFlag = (((config.SLTFlag=="2"||config.SLTFlag=="3")) ? true : false);
+document.write ("<link href='../Skins/Language/" + lang.ActiveLanguage + ".css' type='text/css' rel='stylesheet'>");
+document.write("<link href='../skins/Images_Css/" + config.Skin + "/dialog.css' type='text/css' rel='stylesheet'>");
+document.write("<title>" + sTitle + "</title>");
+
+
+
+
+var sFromUrl = "http://";
+
+var sSLTUrl = "";
+var sCheckFlag = "file";
+
+
+function InitDocument(){
+	lang.TranslatePage(document);
+
+	if (!bAllowUpload){
+		sCheckFlag = "url";
+	}
+	RadioClick(sCheckFlag);
+
+	d_fromurl.value = sFromUrl;
+
+	adjustDialog();
+}
+
+
+function RadioClick(what){
+	if (what=="url"){
+		d_fromurl.disabled=false;
+		if (config.AllowBrowse=="1"){
+			d_browse.disabled=false;
+		}
+		d_checkfromurl.checked=true;
+		if (bAllowUpload){
+			d_checkfromfile.checked=false;
+			document.myuploadform.uploadfile.disabled=true;
+		}
+	}else{
+		d_checkfromurl.checked=false;
+		document.myuploadform.uploadfile.disabled=false;
+		d_checkfromfile.checked=true;
+		d_fromurl.disabled=true;
+		if (config.AllowBrowse=="1"){
+			d_browse.disabled=true;
+		}
+	}
+}
+
+
+function UploadError(s_Flag){
+	AbleItems();
+	RadioClick('file');
+	divProcessing.style.display="none";
+	try {
+		BaseAlert(document.myuploadform.uploadfile, getUploadErrDesc(s_Flag, sAllowExt, sAllowSize));
+	}
+	catch(e){}
+}
+
+
+function UploadSaved(sPathFileName, sPathFileName_s){
+	d_fromurl.value = sPathFileName;
+	if (sPathFileName_s){
+		sSLTUrl = sPathFileName_s;
+	}
+	
+	ReturnValue();
+}
+
+
+function ReturnValue(){
+	sFromUrl = d_fromurl.value;
+	try{
+		oLink.value=sFromUrl;
+		oThumbnail.value=sSLTUrl;
+	}catch(e){}
+
+	window.returnValue = null;
+	window.close();
+}
+
+
+function ok(){
+	if (d_checkfromurl.checked){
+		ReturnValue();
+	}else{
+		if (!IsExt(document.myuploadform.uploadfile.value,sAllowExt)){
+			UploadError("ext");
+			return false;
+		}
+if (pType=="image"){		
+	if (bSYWZFlag){
+		if (d_SYWZFlag.checked){
+			document.myuploadform.action += "&SYWZFlag=1";
+		}
+	}
+	if (bSYTPFlag){
+		if (d_SYTPFlag.checked){
+			document.myuploadform.action += "&sytpflag=1";
+		}
+	}
+	if (bSLTFlag){
+		if (d_SLTFlag.checked){
+			document.myuploadform.action += "&sltflag=1";
+		}
+	}
+}
+		DisableItems();
+		divProcessing.style.display="";
+		document.myuploadform.submit();
+	}
+}
+
+
+function DisableItems(){
+	d_checkfromfile.disabled=true;
+	d_checkfromurl.disabled=true;
+	d_fromurl.disabled=true;
+	if (config.AllowBrowse=="1"){
+		d_browse.disabled=true;
+	}
+	Ok.disabled=true;
+}
+
+
+function AbleItems(){
+	d_checkfromfile.disabled=false;
+	d_checkfromurl.disabled=false;
+	d_fromurl.disabled=false;
+	if (config.AllowBrowse=="1"){
+		d_browse.disabled=false;
+	}
+	Ok.disabled=false;
+}
+
+
+</SCRIPT>
+
+<BODY onLoad="InitDocument()">
+<TABLE border=0 cellpadding=0 cellspacing=5 id=tabDialogSize><TR><TD>
+
+
+<TABLE border=0 cellpadding=0 cellspacing=5 align=center>
+<TR valign=top><TD COLSPAN="2">
+
+		<FIELDSET>
+		<LEGEND><SPAN lang=DlgIUploadOpt></SPAN></LEGEND>
+		<TABLE border=0 cellpadding=5 cellspacing=0 WIDTH="100%">
+		<TR><TD>
+
+			<TABLE border=0 cellpadding=0 cellspacing=0 WIDTH="300px"><TR><TD></TD></TR></TABLE>
+			<TABLE border=0 cellpadding=0 cellspacing=2 WIDTH="100%">
+			<SCRIPT TYPE="text/javascript">
+			if (bAllowUpload){
+				document.write("<tr>");
+				document.write("<td noWrap width=\"20%\"><input type=radio id=\"d_checkfromfile\" value=\"1\" onclick=\"RadioClick('file')\"><label for=d_checkfromfile>"+lang["DlgFromFile"]+"</label>:</td>");
+				document.write("<td noWrap width=\"80%\">");
+				document.write(getUploadForm(pType));
+				document.write("</td>");
+				document.write("</tr>");
+			}
+			</SCRIPT>
+			<TR>
+				<TD noWrap WIDTH="20%"><INPUT type=radio ID="d_checkfromurl" VALUE="1" onClick="RadioClick('url')"><LABEL for=d_checkfromurl><SPAN lang=DlgFromUrl></SPAN></LABEL>:</TD>
+				<TD noWrap WIDTH="80%">
+				<SCRIPT TYPE="text/javascript">
+				if (config.AllowBrowse=="1"){
+					document.write("<table border=0 cellpadding=0 cellspacing=0 width='100%'><tr><td width='100%'><input type=text id='d_fromurl' style='width:100%' size=20 value=''></td><td><input class='dlgBtnBrowse' type=button id='d_browse' onclick=\"SelectBrowse('"+pType+"','fromurl')\" value='"+lang["DlgBtnBrowse"]+"' align=absmiddle></td></tr></table>");
+				} else {
+					document.write("<input type=text id='d_fromurl' style='width:100%' size=30 value=''>");
+				}
+				</SCRIPT>				</TD>
+			</TR>
+			</TABLE>
+
+		</TD></TR>
+		</TABLE>
+		</FIELDSET>
+
+
+</TD></TR>
+<TR><TD noWrap align=left>
+		<SCRIPT TYPE="text/javascript">
+		if (pType=="image"){
+		if (bSYWZFlag){
+		  if (config.SYWZFlag=="3") {
+		  	document.write("<input type=checkbox id=d_SYWZFlag value='1' checked><label for=d_sywzflag><span lang=DlgImgWZSYFlag></span></label>");
+			}
+			else {
+			document.write("<input type=checkbox id=d_SYWZFlag value='1'><label for=d_sywzflag><span lang=DlgImgWZSYFlag></span></label>");
+			}
+		}
+		if (bSYTPFlag){
+		  if (config.SYTPFlag=="3"){
+			document.write("<input type=checkbox id=d_SYTPFlag value='1' checked><label for=d_sytpflag><span lang=DlgImgTPSYFlag></span></label>");
+		  }
+		   else{
+			document.write("<input type=checkbox id=d_SYTPFlag value='1'><label for=d_sytpflag><span lang=DlgImgTPSYFlag></span></label>");
+		   }
+		   }
+		if (bSLTFlag){
+		  if (config.SLTFlag=="3"){
+			document.write("<input type=checkbox id=d_SLTFlag value='1' checked><label for=d_sltflag><span lang=DlgImgSLTFlag></span></label>");
+		  }
+		  else{
+			document.write("<input type=checkbox id=d_SLTFlag value='1'><label for=d_sltflag><span lang=DlgImgSLTFlag></span></label>");
+		}
+		}
+		}
+		</SCRIPT>
+
+
+</TD>
+  <TD noWrap align=right><INPUT type=submit CLASS="dlgBtnCommon" value='' id=Ok onClick="ok()" lang=DlgBtnOK>&nbsp;&nbsp;<INPUT type=button CLASS="dlgBtnCommon" value='' onClick="window.close();" lang=DlgBtnCancel></TD>
+</TR>
+</TABLE>
+
+
+</TD></TR></TABLE>
+
+
+<DIV id=divProcessing STYLE="width:200px;height:30px;position:absolute;left:70px;top:40px;display:none">
+<TABLE border=0 cellpadding=0 cellspacing=1 BGCOLOR="#000000" WIDTH="100%" HEIGHT="100%"><TR><TD bgcolor=#3A6EA5><MARQUEE ALIGN="middle" BEHAVIOR="alternate" SCROLLAMOUNT="5"><FONT color=#FFFFFF><SPAN lang=DlgComUploading></SPAN></FONT></MARQUEE></TD></TR></TABLE>
+</DIV>
+
+
+</BODY>
+</HTML>

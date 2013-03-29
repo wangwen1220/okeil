@@ -1,0 +1,52 @@
+﻿<HTML>
+<HEAD>
+<META http-equiv=Content-Type CONTENT="text/html; charset=UTF-8">
+<SCRIPT TYPE="text/javascript" SRC="dialog.js"></SCRIPT>
+
+<SCRIPT TYPE="text/javascript">
+document.write ("<link href='../Skins/Language/" + lang.ActiveLanguage + ".css' type='text/css' rel='stylesheet'>");
+document.write ("<link href='../Skins/Images_Css/" + config.Skin + "/dialog.css' type='text/css' rel='stylesheet'>");
+
+document.write ("<TITLE>" + lang["DlgAbout"] + "</TITLE>");
+
+function InitDocument(){
+	lang.TranslatePage(document);
+	adjustDialog();
+}
+</SCRIPT>
+
+</HEAD>
+<BODY onLoad="InitDocument()">
+<TABLE border=0 cellpadding=0 cellspacing=0 id=tabDialogSize><TR><TD>
+
+<TABLE border=0 cellpadding=0 cellspacing=0 width=400>
+<TR>
+	<TD height=60 bgcolor=#FFFFFF>
+		<TABLE border=0 cellpadding=0 cellspacing=10 WIDTH="100%">
+		<TR>
+			<TD noWrap><IMG border=0 SRC="../Images/yxwlLogo.Gif"></TD>
+			<TD noWrap align=right valign=bottom><B><SPAN lang=DlgAboutVersion></SPAN>: 5.5 </B><BR>
+			  <B></B><BR><B></B></TD>
+		</TR>
+		</TABLE>
+	</TD>
+</TR>
+<TR><TD height=1 bgcolor=#000000></TD></TR>
+<TR>
+	<TD>
+		<TABLE border=0 cellpadding=0 cellspacing=10 WIDTH="100%">
+		<TR><TD noWrap><SPAN lang=DlgAboutInfo></SPAN><BR>
+&nbsp;&nbsp;<A HREF="http://www.nmyxwl.cn/" TARGET="_blank">WwW.nmYXWL.Cn</A>&nbsp;&nbsp;易讯网络网站在线编辑器V5.2升级版[UTF-8] </TD>
+		</TR>
+		<TR>
+		  <TD ALIGN="CENTER" noWrap>CopyRight &copy; 2003-2008&nbsp;<A HREF="http://www.nmyxwl.cn" TARGET="_blank">www.nmYXwl.Cn</A> 最后更新时间:2008-09-27</TD>
+		</TR>
+		<TR><TD noWrap align=right><INPUT type=button CLASS="dlgBtnCommon" VALUE="" onClick="window.close()" lang=DlgBtnClose></TD></TR>
+		</TABLE>
+	</TD>
+</TR>
+</TABLE>
+
+</TD></TR></TABLE>
+</BODY>
+</HTML>
